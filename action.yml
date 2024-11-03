@@ -1,0 +1,19 @@
+name: "GNOME shell extension uploader"
+description: "Action for uploading extension to GNOME shell extensions website"
+author: "Fire-man-x"
+inputs:
+    GNOME_USERNAME:
+        description: "Username for GNOME shell extensions website"
+    GNOME_PASSWORD:
+        description: "Password for GNOME shell extensions website"
+    extension-zip-file:
+        description: "File containing the ZIP archive with extension. Example: gnome-shell-extension.zip"
+outputs:
+runs:
+    using: 'ubuntu-latest'
+    main: 'dist/setup/index.js'
+    post: 'dist/cache-save/index.js'
+    post-if: success()
+branding:
+    icon: 'code'
+    color: 'yellow'

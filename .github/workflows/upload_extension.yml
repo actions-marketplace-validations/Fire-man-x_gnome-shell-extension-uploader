@@ -1,6 +1,6 @@
 name: Upload to GNOME Shell Extension
 
-on:
+#on:
 	#push:
 	#	branches:
 	#		- main
