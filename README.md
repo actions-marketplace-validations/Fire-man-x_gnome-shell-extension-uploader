@@ -1,1 +1,1 @@
-# Gnome-Shell-extension---automatic-uploader
+# Gnome shell extension - automatic uploader

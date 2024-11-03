@@ -1,0 +1,31 @@
+name: Upload to GNOME Shell Extension
+
+on:
+	#push:
+	#	branches:
+	#		- main
+
+jobs:
+	upload:
+		runs-on: ubuntu-latest
+
+		steps:
+			- name: Checkout repository
+			  uses: actions/checkout@v4
+
+			- name: Set up Python
+			  uses: actions/setup-python@v5
+			  with:
+					python-version: '3.x'
+
+			- name: Install dependencies
+			  run: |
+				apt install python3-bs4
+				# pip install requests beautifulsoup4
+
+			- name: Run upload script
+			  env:
+					GNOME_USERNAME: ${{ secrets.GNOME_USERNAME }}
+					GNOME_PASSWORD: ${{ secrets.GNOME_PASSWORD }}
+			  run: |
+				python src/upload_extension.py
