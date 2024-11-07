@@ -107,7 +107,7 @@ headers = {
 files = {'source': open(extension_zip_file, 'rb')}
 
 # 6. Send POST request with data from form, CSRF token, headers, files, cookies
-upload_response = session.post(upload_url, data=upload_form_data, headers=headers, files=files, cookies=session.cookies, allow_redirects=False)
+upload_response = session.post(upload_url, data=upload_form_data, headers=headers, files=files, cookies=session.cookies, timeout=60, allow_redirects=False)
 
 # 7. Response
 if upload_response.status_code == 200:
