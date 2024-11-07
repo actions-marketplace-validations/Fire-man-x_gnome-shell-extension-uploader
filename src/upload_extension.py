@@ -124,6 +124,10 @@ elif upload_response.status_code == 302:
 	print("Upload was successed.")
 	print(f"Redirect detected. URL for redirect: {upload_response.status_code}")
 	print(upload_response.headers['Location'])
+elif upload_response.status_code == 504:
+	print('')
+	print("Upload was successed, but the server didn't respond in time.")
+	print("504 Gateway Time-out")
 else:
 	print(f"Error in upload: {upload_response.status_code}")
 	print(upload_response.text)
