@@ -2,18 +2,38 @@ name: "GNOME shell extension uploader"
 description: "Action for uploading extension to GNOME shell extensions website"
 author: "Fire-man-x"
 inputs:
-    GNOME_USERNAME:
+    gnome_username:
         description: "Username for GNOME shell extensions website"
-    GNOME_PASSWORD:
+        required: true
+    gnome_password:
         description: "Password for GNOME shell extensions website"
-    extension-zip-file:
+        required: true
+    extension_zip_file:
         description: "File containing the ZIP archive with extension. Example: gnome-shell-extension.zip"
-outputs:
-runs:
-    using: 'ubuntu-latest'
-    main: 'dist/setup/index.js'
-    post: 'dist/cache-save/index.js'
-    post-if: success()
+        required: true
 branding:
     icon: 'code'
     color: 'yellow'
+runs:
+    using: 'composite'
+    steps:
+        -   name: Set up Python
+            uses: actions/setup-python@v5
+            with:
+                python-version: '3.12'
+
+        -   name: Install dependencies
+            shell: bash
+            run: sudo apt install python3-pip python3-bs4 > /dev/null
+
+        -   name: Install python dependencies
+            shell: bash
+            run: pip install requests beautifulsoup4 > /dev/null
+
+        -   name: Run upload script
+            env:
+                GNOME_USERNAME: ${{ inputs.gnome_username }}
+                GNOME_PASSWORD: ${{ inputs.gnome_password }}
+                extension_zip_file: ${{ inputs.extension_zip_file }}
+            shell: bash
+            run: python ${{ github.action_path }}/src/upload_extension.py
